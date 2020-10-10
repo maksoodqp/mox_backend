@@ -1,46 +1,43 @@
 package com.ciferz.mox.model;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.Set;
 
-@Entity
 @Data
+@Entity
+@Table(name="user_data")
 public class UserData {
-
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
-
-    private String username;
-
-    private String fullname;
-
+    private String user_name;
+    private String full_name;
     private String email;
-
     private String mobile;
-
     private String secret;
+    @CreationTimestamp
+    private Timestamp cr_date;
+    private Integer is_active;
 
-    private Date crdate;
-
-    private Integer isactive;
+    @ManyToMany
+    private Set<UserRole> roles;
 
     public UserData() {
     }
 
-    public UserData(Long id, String username, String fullname, String email, String mobile, String secret, Date crdate, Integer isactive) {
+    public UserData(Long id, String user_name, String full_name, String email, String mobile, String secret, Timestamp cr_date, Integer is_active) {
         this.id = id;
-        this.username = username;
-        this.fullname = fullname;
+        this.user_name = user_name;
+        this.full_name = full_name;
         this.email = email;
         this.mobile = mobile;
         this.secret = secret;
-        this.crdate = crdate;
-        this.isactive = isactive;
+        this.cr_date = cr_date;
+        this.is_active = is_active;
     }
 }
